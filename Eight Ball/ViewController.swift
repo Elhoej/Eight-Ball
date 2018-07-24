@@ -32,17 +32,30 @@ class ViewController: UIViewController
         "Outlook not so good.",
         "Very doubtful.",
         ]
-    
 
     @IBOutlet weak var answerLabel: UILabel!
     
+    
     @IBAction func flipEightBall(_ sender: Any)
     {
-        let randomIndex = Int(arc4random_uniform(UInt32(answers.count)))
-        answerLabel.text = answers[randomIndex]
+        answerLabel.text = generateAnswer()
     }
     
+    private var lastAnswer = ""
     
+    private func generateAnswer() -> String
+    {
+        var result = ""
+        repeat
+        {
+            let randomIndex = Int(arc4random_uniform(UInt32(answers.count)))
+            result = answers[randomIndex]
+        } while result == lastAnswer
+
+        lastAnswer = result
+        
+        return result
+    }
     
 
 }
